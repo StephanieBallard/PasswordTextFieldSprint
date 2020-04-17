@@ -69,7 +69,7 @@ class PasswordField: UIControl {
         titleLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
         
 //        A textfield that accepts text with the contents hidden or shown depending on the state of the show/hide button. The textfield should have a blue border that wraps around the textfield itself and the show/hide button.
-        //textField = UITextField(frame: CGRect(x: 10, y: 100, width: UIScreen.main.bounds.size.width - 20, height: 50))
+        
         textField.layer.cornerRadius = standardMargin
         textField.layer.borderWidth = 2.0
         textField.layer.borderColor = textFieldBorderColor.cgColor
@@ -78,6 +78,10 @@ class PasswordField: UIControl {
         textField.borderStyle = .roundedRect
         textField.backgroundColor = bgColor
         textField.layer.borderColor = textFieldBorderColor.cgColor
+        textField.textColor = labelTextColor
+        textField.font = labelFont
+        addSubview(textField)
+        textField.translatesAutoresizingMaskIntoConstraints = false
         
         
     }
