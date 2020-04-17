@@ -65,11 +65,9 @@ class PasswordField: UIControl {
         titleLabel.textColor = labelTextColor
         addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-//        titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
-//        titleLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
-        
         titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
+        
         
         //        A textfield that accepts text with the contents hidden or shown depending on the state of the show/hide button. The textfield should have a blue border that wraps around the textfield itself and the show/hide button.
         
@@ -98,12 +96,10 @@ class PasswordField: UIControl {
         textField.heightAnchor.constraint(equalToConstant: textFieldContainerHeight).isActive = true
         
         
-//        If you set the “weak, medium, and strong” view’s color proprty to unused and then in your password checking logic change the color in each case
+        //        If you set the “weak, medium, and strong” view’s color proprty to unused and then in your password checking logic change the color in each case
         //You have to set the height and width anchor’s constraints seperately and activate them
         //Essentially, your problem comes when the stack view is generated and it crushes the views to the stack view’s origin because there are no intrensic sizes saying that it cannot go below a certian height and width.
-
-        strengthDescriptionLabel.text = "weak password"
-//        strengthDescriptionLabel.font = labelFont
+        
         weakView.backgroundColor = unusedColor
         mediumView.backgroundColor = unusedColor
         strongView.backgroundColor = unusedColor
@@ -120,9 +116,13 @@ class PasswordField: UIControl {
         strongView.heightAnchor.constraint(equalToConstant: colorViewSize.height).isActive = true
         strongView.widthAnchor.constraint(equalToConstant: colorViewSize.width).isActive = true
         
+        strengthDescriptionLabel.text = "weak password"
+        strengthDescriptionLabel.font = labelFont
+        strengthDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(strengthDescriptionLabel)
         
         let passwordStrengthStackView = UIStackView()
-        passwordStrengthStackView.translatesAutoresizingMaskIntoConstraints = false
+        //        passwordStrengthStackView.translatesAutoresizingMaskIntoConstraints = false
         passwordStrengthStackView.axis = .horizontal
         passwordStrengthStackView.distribution = .equalSpacing
         addSubview(passwordStrengthStackView)
@@ -130,11 +130,13 @@ class PasswordField: UIControl {
         passwordStrengthStackView.addArrangedSubview(weakView)
         passwordStrengthStackView.addArrangedSubview(mediumView)
         passwordStrengthStackView.addArrangedSubview(strongView)
-        passwordStrengthStackView.addArrangedSubview(strengthDescriptionLabel)
         
-        passwordStrengthStackView.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 8).isActive = true
-        passwordStrengthStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
-        passwordStrengthStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
+        passwordStrengthStackView.anchor(top: textField.bottomAnchor, leading: textField.leadingAnchor, trailing: nil, bottom: nil, padding: .init(top: standardMargin * 1.5, left: textFieldMargin - 2, bottom: 0, right: 0), size: CGSize(width: colorViewSize.width * 3 + standardMargin, height: colorViewSize.height))
+        
+//        strengthDescriptionLabel.leadingAnchor.constraint(equalTo: passwordStrengthStackView.trailingAnchor, constant: standardMargin).isActive = true
+        strengthDescriptionLabel.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: textFieldMargin - 1).isActive = true
+        strengthDescriptionLabel.leadingAnchor.constraint(equalTo: passwordStrengthStackView.trailingAnchor, constant: standardMargin).isActive = true
+        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
