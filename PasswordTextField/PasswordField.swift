@@ -7,7 +7,7 @@
 //
 
 import UIKit
-    
+
 enum Strength {
     case weak
     case medium
@@ -68,7 +68,7 @@ class PasswordField: UIControl {
         titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
         
-//        A textfield that accepts text with the contents hidden or shown depending on the state of the show/hide button. The textfield should have a blue border that wraps around the textfield itself and the show/hide button.
+        //        A textfield that accepts text with the contents hidden or shown depending on the state of the show/hide button. The textfield should have a blue border that wraps around the textfield itself and the show/hide button.
         
         textField.layer.cornerRadius = standardMargin
         textField.layer.borderWidth = 2.0
@@ -82,9 +82,11 @@ class PasswordField: UIControl {
         //Setting this property to true in a UITextField object additionally enables a password-style experience, in which the text being entered is obscured.
         textField.isSecureTextEntry = true
         textField.rightView = showHideButton
+        textField.rightViewMode = .always
         showHideButton.translatesAutoresizingMaskIntoConstraints = false
         showHideButton.setImage(UIImage(named: "eyes-closed"), for: .normal)
-        showHideButton.imageEdgeInsets = UIEdgeInsets
+        showHideButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -2.0 * standardMargin, bottom: 0, right: 0)
+        
         addSubview(textField)
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: standardMargin).isActive = true
@@ -92,13 +94,24 @@ class PasswordField: UIControl {
         textField.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -standardMargin).isActive = true
         textField.heightAnchor.constraint(equalToConstant: textFieldContainerHeight).isActive = true
         
+        var strengthIndicatorsStackView = [weakView, mediumView, strongView]
+        strengthIndicatorsStackView = stackView(axis: .horizontal, distribution: .equalSpacing)
         
     }
     
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        textField.resignFirstResponder()
-//        return true
-//    }
+    private func stackView(axis: NSLayoutConstraint.Axis, distribution: UIStackView.Distribution) -> UIStackView {
+        let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = axis
+        stack.distribution = distribution
+        self.addSubview(stack)
+        return stack
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }
 
 extension PasswordField: UITextFieldDelegate {
