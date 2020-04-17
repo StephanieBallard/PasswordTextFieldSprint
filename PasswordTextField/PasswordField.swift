@@ -65,6 +65,9 @@ class PasswordField: UIControl {
         titleLabel.textColor = labelTextColor
         addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
+//        titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
+//        titleLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
+        
         titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
         
@@ -100,6 +103,7 @@ class PasswordField: UIControl {
         //Essentially, your problem comes when the stack view is generated and it crushes the views to the stack view’s origin because there are no intrensic sizes saying that it cannot go below a certian height and width.
 
         strengthDescriptionLabel.text = "weak password"
+//        strengthDescriptionLabel.font = labelFont
         weakView.backgroundColor = unusedColor
         mediumView.backgroundColor = unusedColor
         strongView.backgroundColor = unusedColor
@@ -108,6 +112,13 @@ class PasswordField: UIControl {
         weakView.sizeThatFits(colorViewSize)
         mediumView.sizeThatFits(colorViewSize)
         strongView.sizeThatFits(colorViewSize)
+        
+        weakView.heightAnchor.constraint(equalToConstant: colorViewSize.height).isActive = true
+        weakView.widthAnchor.constraint(equalToConstant: colorViewSize.width).isActive = true
+        mediumView.heightAnchor.constraint(equalToConstant: colorViewSize.height).isActive = true
+        mediumView.widthAnchor.constraint(equalToConstant: colorViewSize.width).isActive = true
+        strongView.heightAnchor.constraint(equalToConstant: colorViewSize.height).isActive = true
+        strongView.widthAnchor.constraint(equalToConstant: colorViewSize.width).isActive = true
         
         
         let passwordStrengthStackView = UIStackView()
