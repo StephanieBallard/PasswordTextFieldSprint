@@ -94,18 +94,25 @@ class PasswordField: UIControl {
         textField.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -standardMargin).isActive = true
         textField.heightAnchor.constraint(equalToConstant: textFieldContainerHeight).isActive = true
         
-        var strengthIndicatorsStackView = [weakView, mediumView, strongView]
-        strengthIndicatorsStackView = stackView(axis: .horizontal, distribution: .equalSpacing)
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .equalSpacing
+        addSubview(stackView)
         
-    }
-    
-    private func stackView(axis: NSLayoutConstraint.Axis, distribution: UIStackView.Distribution) -> UIStackView {
-        let stack = UIStackView()
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.axis = axis
-        stack.distribution = distribution
-        self.addSubview(stack)
-        return stack
+        stackView.addArrangedSubview(weakView)
+        stackView.addArrangedSubview(mediumView)
+        stackView.addArrangedSubview(strongView)
+        stackView.addArrangedSubview(strengthDescriptionLabel)
+        
+        
+        
+//        NSLayoutConstraint.activate([
+//            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+//            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+//            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+//        ])
+        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -123,3 +130,4 @@ extension PasswordField: UITextFieldDelegate {
         return true
     }
 }
+
