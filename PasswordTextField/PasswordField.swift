@@ -115,6 +115,7 @@ class PasswordField: UIControl {
 
         passwordStrengthStackView.anchor(top: textField.bottomAnchor, leading: textField.leadingAnchor, trailing: nil, bottom: nil, padding: .init(top: standardMargin * 1.5, left: textFieldMargin - 2, bottom: 0, right: 0), size: CGSize(width: colorViewSize.width * 3 + standardMargin, height: colorViewSize.height))
 
+        passwordStrengthStackView.anchor(top: <#T##NSLayoutYAxisAnchor?#>, leading: <#T##NSLayoutXAxisAnchor?#>, trailing: <#T##NSLayoutXAxisAnchor?#>, bottom: <#T##NSLayoutYAxisAnchor?#>, padding: <#T##UIEdgeInsets#>, size: <#T##CGSize#>)
         strengthDescriptionLabel.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: textFieldMargin - 1).isActive = true
         strengthDescriptionLabel.leadingAnchor.constraint(equalTo: passwordStrengthStackView.trailingAnchor, constant: standardMargin).isActive = true
     }
@@ -183,6 +184,18 @@ extension PasswordField: UITextFieldDelegate {
         let newText = oldText.replacingCharacters(in: stringRange, with: string)
         // TODO: send new text to the determine strength method
         passwordStrength(newPassword: newText)
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let newPassword = textField.text {
+            password = newPassword
+            sendActions(for: .valueChanged)
+        }
+        weakView.performFlare()
+        mediumView.performFlare()
+        strongView.performFlare()
+        textField.resignFirstResponder()
         return true
     }
 }
