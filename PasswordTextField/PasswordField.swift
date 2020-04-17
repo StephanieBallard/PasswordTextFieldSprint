@@ -94,25 +94,23 @@ class PasswordField: UIControl {
         textField.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -standardMargin).isActive = true
         textField.heightAnchor.constraint(equalToConstant: textFieldContainerHeight).isActive = true
         
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.distribution = .equalSpacing
-        addSubview(stackView)
         
-        stackView.addArrangedSubview(weakView)
-        stackView.addArrangedSubview(mediumView)
-        stackView.addArrangedSubview(strongView)
-        stackView.addArrangedSubview(strengthDescriptionLabel)
+        strengthDescriptionLabel.text = "weak password"
         
+        let passwordStrengthStackView = UIStackView()
+        passwordStrengthStackView.translatesAutoresizingMaskIntoConstraints = false
+        passwordStrengthStackView.axis = .horizontal
+        passwordStrengthStackView.distribution = .equalSpacing
+        addSubview(passwordStrengthStackView)
         
+        passwordStrengthStackView.addArrangedSubview(weakView)
+        passwordStrengthStackView.addArrangedSubview(mediumView)
+        passwordStrengthStackView.addArrangedSubview(strongView)
+        passwordStrengthStackView.addArrangedSubview(strengthDescriptionLabel)
         
-//        NSLayoutConstraint.activate([
-//            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-//            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-//            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
-//        ])
-        
+        passwordStrengthStackView.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 8).isActive = true
+        passwordStrengthStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
+        passwordStrengthStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
