@@ -95,7 +95,20 @@ class PasswordField: UIControl {
         textField.heightAnchor.constraint(equalToConstant: textFieldContainerHeight).isActive = true
         
         
+//        If you set the “weak, medium, and strong” view’s color proprty to unused and then in your password checking logic change the color in each case
+        //You have to set the height and width anchor’s constraints seperately and activate them
+        //Essentially, your problem comes when the stack view is generated and it crushes the views to the stack view’s origin because there are no intrensic sizes saying that it cannot go below a certian height and width.
+
         strengthDescriptionLabel.text = "weak password"
+        weakView.backgroundColor = unusedColor
+        mediumView.backgroundColor = unusedColor
+        strongView.backgroundColor = unusedColor
+        
+        
+        weakView.sizeThatFits(colorViewSize)
+        mediumView.sizeThatFits(colorViewSize)
+        strongView.sizeThatFits(colorViewSize)
+        
         
         let passwordStrengthStackView = UIStackView()
         passwordStrengthStackView.translatesAutoresizingMaskIntoConstraints = false
