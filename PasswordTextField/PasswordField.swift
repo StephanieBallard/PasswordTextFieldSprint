@@ -79,6 +79,12 @@ class PasswordField: UIControl {
         textField.backgroundColor = bgColor
         textField.textColor = labelTextColor
         textField.font = labelFont
+        //Setting this property to true in a UITextField object additionally enables a password-style experience, in which the text being entered is obscured.
+        textField.isSecureTextEntry = true
+        textField.rightView = showHideButton
+        showHideButton.translatesAutoresizingMaskIntoConstraints = false
+        showHideButton.setImage(UIImage(named: "eyes-closed"), for: .normal)
+        showHideButton.imageEdgeInsets = UIEdgeInsets
         addSubview(textField)
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: standardMargin).isActive = true
