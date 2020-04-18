@@ -60,23 +60,17 @@ class PasswordField: UIControl {
         addSubview(strengthDescriptionLabel)
 
         // MARK: - Translates Autoresizing Mask Into Constraints -
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         showHideButton.translatesAutoresizingMaskIntoConstraints = false
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        strengthDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 
         // MARK: - Title Label -
-        titleLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
+        titleLabel.anchor(top: self.safeAreaLayoutGuide.topAnchor, leading: self.safeAreaLayoutGuide.leadingAnchor, trailing: nil, bottom: nil, padding: .init(top: standardMargin, left: standardMargin, bottom: 0, right: 0), size: .zero)
         titleLabel.text = "ENTER PASSWORD"
         titleLabel.font = labelFont
         titleLabel.textColor = labelTextColor
 
         // MARK: - Text Field -
-        textField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: standardMargin).isActive = true
-        textField.leadingAnchor.constraint(equalTo:self.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        textField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        textField.heightAnchor.constraint(equalToConstant: textFieldContainerHeight).isActive = true
+        textField.anchor(top: titleLabel.bottomAnchor, leading: self.safeAreaLayoutGuide.leadingAnchor, trailing: self.safeAreaLayoutGuide.trailingAnchor, bottom: nil, padding: .init(top: standardMargin, left: 0, bottom: 0, right: 0), size: CGSize(width: .zero, height: textFieldContainerHeight))
+
         textField.layer.cornerRadius = standardMargin
         textField.layer.borderWidth = 2.0
         textField.layer.borderColor = textFieldBorderColor.cgColor
@@ -88,6 +82,7 @@ class PasswordField: UIControl {
         textField.rightViewMode = .always
 
         // MARK: - Show Hide Button -
+
         showHideButton.setImage(UIImage(named: "eyes-closed"), for: .normal)
         showHideButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -2.0 * standardMargin, bottom: 0, right: 0)
         showHideButton.addTarget(self, action: #selector(showHideButtonTapped), for: .touchUpInside)
@@ -96,12 +91,9 @@ class PasswordField: UIControl {
         mediumView.backgroundColor = unusedColor
         strongView.backgroundColor = unusedColor
 
-        weakView.heightAnchor.constraint(equalToConstant: colorViewSize.height).isActive = true
-        weakView.widthAnchor.constraint(equalToConstant: colorViewSize.width).isActive = true
-        mediumView.heightAnchor.constraint(equalToConstant: colorViewSize.height).isActive = true
-        mediumView.widthAnchor.constraint(equalToConstant: colorViewSize.width).isActive = true
-        strongView.heightAnchor.constraint(equalToConstant: colorViewSize.height).isActive = true
-        strongView.widthAnchor.constraint(equalToConstant: colorViewSize.width).isActive = true
+        weakView.anchor(top: nil, leading: nil, trailing: nil, bottom: nil, padding: .zero, size: CGSize(width: colorViewSize.width, height: colorViewSize.height))
+        mediumView.anchor(top: nil, leading: nil, trailing: nil, bottom: nil, padding: .zero, size: CGSize(width: colorViewSize.width, height: colorViewSize.height))
+        strongView.anchor(top: nil, leading: nil, trailing: nil, bottom: nil, padding: .zero, size: CGSize(width: colorViewSize.width, height: colorViewSize.height))
 
         strengthDescriptionLabel.text = "weak password"
         strengthDescriptionLabel.font = labelFont
@@ -115,9 +107,7 @@ class PasswordField: UIControl {
 
         passwordStrengthStackView.anchor(top: textField.bottomAnchor, leading: textField.leadingAnchor, trailing: nil, bottom: nil, padding: .init(top: standardMargin * 1.5, left: textFieldMargin - 2, bottom: 0, right: 0), size: CGSize(width: colorViewSize.width * 3 + standardMargin, height: colorViewSize.height))
 
-        passwordStrengthStackView.anchor(top: <#T##NSLayoutYAxisAnchor?#>, leading: <#T##NSLayoutXAxisAnchor?#>, trailing: <#T##NSLayoutXAxisAnchor?#>, bottom: <#T##NSLayoutYAxisAnchor?#>, padding: <#T##UIEdgeInsets#>, size: <#T##CGSize#>)
-        strengthDescriptionLabel.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: textFieldMargin - 1).isActive = true
-        strengthDescriptionLabel.leadingAnchor.constraint(equalTo: passwordStrengthStackView.trailingAnchor, constant: standardMargin).isActive = true
+        strengthDescriptionLabel.anchor(top: textField.bottomAnchor, leading: passwordStrengthStackView.trailingAnchor, trailing: nil, bottom: nil, padding: .init(top: textFieldMargin, left: standardMargin, bottom: 0, right: 0), size: .zero)
     }
     
     @objc func showHideButtonTapped() {
